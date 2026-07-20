@@ -6,7 +6,7 @@ Code repository for the paper:
 
 
 
-> Stojanović, L., Fetai, B., Lisec, A. (2025). Multi-class road extraction from
+> Stojanović, L., Fetai, B., Lisec, A. (2026). Multi-class road extraction from
 
 > high-resolution orthophotos with deep learning: a landscape-stratified evaluation
 
