@@ -216,3 +216,42 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project-specific — large files never committed
+*.npy
+*.tif
+*.tfw
+*.pth
+*.gpkg
+
+# Data folders
+data/raw/
+data/processed/tiles/
+data/processed/masks/
+data/processed/masks_2class/
+data/processed/road_labels/masks/
+
+# Model weights
+models/
+
+# Generated outputs
+outputs/
+
+# Jupyter artifacts
+.ipynb_checkpoints/
+*.ipynb~
+
+# Temporary images from notebooks
+remap_preview.png
+mask_verification.png
+test_tiles_preview.png
+2class_verification.png
+ljubljana_*.png
+test_major_roads*.png
+test_motorway_detail.png
+test_predictions_all_models.png
+
+# Windows
+Thumbs.db
+Desktop.ini
+ehthumbs.db

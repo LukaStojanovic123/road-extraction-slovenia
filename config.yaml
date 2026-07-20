@@ -1,0 +1,92 @@
+# config.yaml
+# Central configuration for road extraction project
+#
+# Before running any script, set these environment variables:
+#   Windows: set ROOT_DIR=D:\lstojano\road_extraction_slovenia
+#            set ORTHO_DIR=\\kgkn-nas\eo_data_2\GURS_podatki\DOF\DOF025
+#   Linux:   export ROOT_DIR=/path/to/road_extraction_slovenia
+#            export ORTHO_DIR=/path/to/orthophotos
+
+paths:
+  road_network:     "${ROOT_DIR}/data/raw/roads/roads_102109.gpkg"
+  municipalities:   "${ROOT_DIR}/data/raw/municipalities/municipalities_102109.gpkg"
+  orthophotos:      "${ORTHO_DIR}"
+  study_areas:      "${ROOT_DIR}/data/processed/study_areas.gpkg"
+  selected_orthos:  "${ROOT_DIR}/data/processed/metadata/selected_orthophotos.csv"
+  road_labels:      "${ROOT_DIR}/data/processed/road_labels"
+  masks_dir:        "${ROOT_DIR}/data/processed/road_labels/masks"
+  tiles_dir:        "${ROOT_DIR}/data/processed/tiles"
+  tile_index:       "${ROOT_DIR}/data/processed/metadata/tile_index_road_only.csv"
+  tile_index_2class:"${ROOT_DIR}/data/processed/metadata/tile_index_2class.csv"
+  models_dir:       "${ROOT_DIR}/models"
+  figures_dir:      "${ROOT_DIR}/outputs/figures"
+  metrics_dir:      "${ROOT_DIR}/outputs/metrics"
+  article_dir:      "${ROOT_DIR}/outputs/article"
+  tfw_root:         "${ORTHO_DIR}/1_DOF025_Geolokacije/DOF025_TFW"
+
+project:
+  crs:                   "ESRI:102109"
+  tile_size:             512
+  tile_step:             384
+  tile_overlap:          0.25
+  random_seed:           42
+  ortho_pixel_size_m:    0.25
+  ortho_tile_width_px:   9000
+  ortho_tile_height_px:  12000
+
+road_classes:
+  1:
+    name:              "major_roads"
+    codes:             ["AC", "HC", "G1", "G2", "R1"]
+    buffer_min_m:      3.0
+    buffer_fallback_m: 4.0
+    buffer_field:      "SIRCES"
+  2:
+    name:              "local_roads"
+    codes:             ["GZ", "R2", "R3", "RT", "LC", "LZ"]
+    buffer_min_m:      2.0
+    buffer_fallback_m: 2.0
+    buffer_field:      "SIRCES"
+  3:
+    name:              "minor_roads"
+    codes:             ["LG", "LK", "JP", "KD", "KJ", "NK", "PP"]
+    buffer_min_m:      1.5
+    buffer_fallback_m: 1.0
+    buffer_field:      "SIRCES"
+
+training:
+  num_classes_3class:  4
+  num_classes_2class:  3
+  batch_size_3class:   64
+  batch_size_2class:   32
+  num_epochs:          50
+  patience:            10
+  learning_rate:       0.0001
+  num_workers:         4
+  class_weights_3class: [1.0, 8.0, 6.0, 4.0]
+  class_weights_2class: [1.0, 6.0, 4.0]
+
+splits:
+  train:
+    - Ljubljana
+    - Maribor
+    - Koper
+    - Celje
+    - Ptuj
+    - Murska Sobota
+    - Krško
+    - Postojna
+    - Kočevje
+    - Bovec
+    - Ajdovščina
+    - Slovenska Bistrica
+  val:
+    - Kranj
+    - Novo mesto
+    - Tolmin
+  test:
+    - Nova Gorica
+    - Domžale
+    - Bohinj
+    - Piran
+    - Lendava
