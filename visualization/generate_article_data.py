@@ -4,6 +4,19 @@ Generates all tables, figures, and statistics needed for the ISPRS paper.
 Run AFTER test_v2.py and test_2class.py have completed.
 """
 
+import os
+
+# ── Root paths — set environment variables before running ─────────────────
+# Windows: set ROOT_DIR=D:\path	o\your\project
+#          set ORTHO_DIR=\your
+as\path	o\DOF025
+# Linux:   export ROOT_DIR=/path/to/your/project
+#          export ORTHO_DIR=/path/to/DOF025
+_DEFAULT_ROOT  = r"D:\lstojanooad_extraction_slovenia"
+_DEFAULT_ORTHO = r"\kgkn-nas\eo_data_2\GURS_podatki\DOF\DOF025"
+ROOT_DIR  = Path(os.environ.get("ROOT_DIR",  _DEFAULT_ROOT))
+ORTHO_DIR = Path(os.environ.get("ORTHO_DIR", _DEFAULT_ORTHO))
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -16,11 +29,11 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # ── Paths ──────────────────────────────────────────────────────────────────
-METRICS_3CLASS  = Path(r"D:\lstojano\road_extraction_slovenia\outputs\metrics")
-METRICS_2CLASS  = Path(r"D:\lstojano\road_extraction_slovenia\outputs\2class\metrics")
-TILE_INDEX_3    = Path(r"D:\lstojano\road_extraction_slovenia\data\processed\metadata\tile_index_road_only.csv")
-TILE_INDEX_2    = Path(r"D:\lstojano\road_extraction_slovenia\data\processed\metadata\tile_index_2class.csv")
-OUT_DIR         = Path(r"D:\lstojano\road_extraction_slovenia\outputs\article")
+METRICS_3CLASS  = ROOT_DIR / "outputs/metrics"
+METRICS_2CLASS  = ROOT_DIR / "outputs/2class/metrics"
+TILE_INDEX_3    = ROOT_DIR / "data/processed/metadata/tile_index_road_only.csv"
+TILE_INDEX_2    = ROOT_DIR / "data/processed/metadata/tile_index_2class.csv"
+OUT_DIR         = ROOT_DIR / "outputs/article"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 MODEL_NAMES  = ['unet_resnet50', 'dlinknet', 'segformer', 'deeplabv3plus']

@@ -10,6 +10,19 @@ This single file enables:
   - Objective failure case selection for Artifact 3
 """
 
+import os
+
+# ── Root paths — set environment variables before running ─────────────────
+# Windows: set ROOT_DIR=D:\path	o\your\project
+#          set ORTHO_DIR=\your
+as\path	o\DOF025
+# Linux:   export ROOT_DIR=/path/to/your/project
+#          export ORTHO_DIR=/path/to/DOF025
+_DEFAULT_ROOT  = r"D:\lstojanooad_extraction_slovenia"
+_DEFAULT_ORTHO = r"\kgkn-nas\eo_data_2\GURS_podatki\DOF\DOF025"
+ROOT_DIR  = Path(os.environ.get("ROOT_DIR",  _DEFAULT_ROOT))
+ORTHO_DIR = Path(os.environ.get("ORTHO_DIR", _DEFAULT_ORTHO))
+
 import torch
 import numpy as np
 import pandas as pd
@@ -21,11 +34,11 @@ from albumentations.pytorch import ToTensorV2
 import time
 
 # ── Paths ──────────────────────────────────────────────────────────────────
-TILE_INDEX_3  = Path(r"D:\lstojano\road_extraction_slovenia\data\processed\metadata\tile_index_road_only.csv")
-TILE_INDEX_2  = Path(r"D:\lstojano\road_extraction_slovenia\data\processed\metadata\tile_index_2class.csv")
-MODELS_3CLASS = Path(r"D:\lstojano\road_extraction_slovenia\models")
-MODELS_2CLASS = Path(r"D:\lstojano\road_extraction_slovenia\models\2class")
-OUT_DIR       = Path(r"D:\lstojano\road_extraction_slovenia\outputs\article")
+TILE_INDEX_3  = ROOT_DIR / "data/processed/metadata/tile_index_road_only.csv"
+TILE_INDEX_2  = ROOT_DIR / "data/processed/metadata/tile_index_2class.csv"
+MODELS_3CLASS = ROOT_DIR / "models"
+MODELS_2CLASS = ROOT_DIR / "models/2class"
+OUT_DIR       = ROOT_DIR / "outputs/article"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 MODEL_NAMES = ['unet_resnet50', 'dlinknet', 'segformer', 'deeplabv3plus']

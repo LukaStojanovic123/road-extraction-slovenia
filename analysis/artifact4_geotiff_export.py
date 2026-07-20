@@ -5,6 +5,19 @@ Uses TFW files to georeference each tile and mosaics them correctly.
 Output: outputs/article/artifact4_geotiffs/
 """
 
+import os
+
+# ── Root paths — set environment variables before running ─────────────────
+# Windows: set ROOT_DIR=D:\path	o\your\project
+#          set ORTHO_DIR=\your
+as\path	o\DOF025
+# Linux:   export ROOT_DIR=/path/to/your/project
+#          export ORTHO_DIR=/path/to/DOF025
+_DEFAULT_ROOT  = r"D:\lstojanooad_extraction_slovenia"
+_DEFAULT_ORTHO = r"\kgkn-nas\eo_data_2\GURS_podatki\DOF\DOF025"
+ROOT_DIR  = Path(os.environ.get("ROOT_DIR",  _DEFAULT_ROOT))
+ORTHO_DIR = Path(os.environ.get("ORTHO_DIR", _DEFAULT_ORTHO))
+
 import torch
 import numpy as np
 import pandas as pd
@@ -19,10 +32,10 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # ── Paths ──────────────────────────────────────────────────────────────────
-TILE_INDEX_3  = Path(r"D:\lstojano\road_extraction_slovenia\data\processed\metadata\tile_index_road_only.csv")
-MODELS_3CLASS = Path(r"D:\lstojano\road_extraction_slovenia\models")
-TFW_ROOT      = Path(r"\\kgkn-nas\eo_data_2\GURS_podatki\DOF\DOF025\1_DOF025_Geolokacije\DOF025_TFW")
-OUT_DIR       = Path(r"D:\lstojano\road_extraction_slovenia\outputs\article\artifact4_geotiffs")
+TILE_INDEX_3  = ROOT_DIR / "data/processed/metadata/tile_index_road_only.csv"
+MODELS_3CLASS = ROOT_DIR / "models"
+TFW_ROOT      = ORTHO_DIR / "1_DOF025_Geolokacije/DOF025_TFW"
+OUT_DIR       = ROOT_DIR / "outputs/article/artifact4_geotiffs"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # CRS — ESRI:102109 (ETRS_1989_Slovenia_TM)

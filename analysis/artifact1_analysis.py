@@ -8,11 +8,24 @@ Computes:
 Run AFTER artifact1_per_tile_counts.py
 """
 
+import os
+
+# ── Root paths — set environment variables before running ─────────────────
+# Windows: set ROOT_DIR=D:\path	o\your\project
+#          set ORTHO_DIR=\your
+as\path	o\DOF025
+# Linux:   export ROOT_DIR=/path/to/your/project
+#          export ORTHO_DIR=/path/to/DOF025
+_DEFAULT_ROOT  = r"D:\lstojanooad_extraction_slovenia"
+_DEFAULT_ORTHO = r"\kgkn-nas\eo_data_2\GURS_podatki\DOF\DOF025"
+ROOT_DIR  = Path(os.environ.get("ROOT_DIR",  _DEFAULT_ROOT))
+ORTHO_DIR = Path(os.environ.get("ORTHO_DIR", _DEFAULT_ORTHO))
+
 import numpy as np
 import pandas as pd
 from pathlib import Path
 
-OUT_DIR    = Path(r"D:\lstojano\road_extraction_slovenia\outputs\article")
+OUT_DIR    = ROOT_DIR / "outputs/article"
 COUNTS_CSV = OUT_DIR / 'artifact1_per_tile_counts.csv'
 
 N_BOOTSTRAP = 10000

@@ -1,3 +1,16 @@
+import os
+
+# ── Root paths — set environment variables before running ─────────────────
+# Windows: set ROOT_DIR=D:\path	o\your\project
+#          set ORTHO_DIR=\your
+as\path	o\DOF025
+# Linux:   export ROOT_DIR=/path/to/your/project
+#          export ORTHO_DIR=/path/to/DOF025
+_DEFAULT_ROOT  = r"D:\lstojanooad_extraction_slovenia"
+_DEFAULT_ORTHO = r"\kgkn-nas\eo_data_2\GURS_podatki\DOF\DOF025"
+ROOT_DIR  = Path(os.environ.get("ROOT_DIR",  _DEFAULT_ROOT))
+ORTHO_DIR = Path(os.environ.get("ORTHO_DIR", _DEFAULT_ORTHO))
+
 import torch
 import torch.nn as nn
 import numpy as np
@@ -12,9 +25,9 @@ from albumentations.pytorch import ToTensorV2
 import time
 
 # Paths
-TILE_INDEX  = Path(r"D:\lstojano\road_extraction_slovenia\data\processed\metadata\tile_index_road_only.csv")
-MODELS_DIR  = Path(r"D:\lstojano\road_extraction_slovenia\models")
-METRICS_DIR = Path(r"D:\lstojano\road_extraction_slovenia\outputs\metrics")
+TILE_INDEX  = ROOT_DIR / "data/processed/metadata/tile_index_road_only.csv"
+MODELS_DIR  = ROOT_DIR / "models"
+METRICS_DIR = ROOT_DIR / "outputs/metrics"
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
 METRICS_DIR.mkdir(parents=True, exist_ok=True)
 

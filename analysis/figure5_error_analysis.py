@@ -11,6 +11,19 @@ Each row: Orthophoto | Ground Truth | Prediction | Difference map
 Annotations mark the specific confusion zones.
 """
 
+import os
+
+# ── Root paths — set environment variables before running ─────────────────
+# Windows: set ROOT_DIR=D:\path	o\your\project
+#          set ORTHO_DIR=\your
+as\path	o\DOF025
+# Linux:   export ROOT_DIR=/path/to/your/project
+#          export ORTHO_DIR=/path/to/DOF025
+_DEFAULT_ROOT  = r"D:\lstojanooad_extraction_slovenia"
+_DEFAULT_ORTHO = r"\kgkn-nas\eo_data_2\GURS_podatki\DOF\DOF025"
+ROOT_DIR  = Path(os.environ.get("ROOT_DIR",  _DEFAULT_ROOT))
+ORTHO_DIR = Path(os.environ.get("ORTHO_DIR", _DEFAULT_ORTHO))
+
 import torch
 import numpy as np
 import pandas as pd
@@ -26,10 +39,10 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # ── Paths ──────────────────────────────────────────────────────────────────
-TILE_INDEX_3  = Path(r"D:\lstojano\road_extraction_slovenia\data\processed\metadata\tile_index_road_only.csv")
-COUNTS_CSV    = Path(r"D:\lstojano\road_extraction_slovenia\outputs\article\artifact1_per_tile_counts.csv")
-MODELS_3CLASS = Path(r"D:\lstojano\road_extraction_slovenia\models")
-OUT_DIR       = Path(r"D:\lstojano\road_extraction_slovenia\outputs\article")
+TILE_INDEX_3  = ROOT_DIR / "data/processed/metadata/tile_index_road_only.csv"
+COUNTS_CSV    = ROOT_DIR / "outputs/article/artifact1_per_tile_counts.csv"
+MODELS_3CLASS = ROOT_DIR / "models"
+OUT_DIR       = ROOT_DIR / "outputs/article"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # ── Font sizes ─────────────────────────────────────────────────────────────
